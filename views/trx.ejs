@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HODLINFO</title>
+  <style>
+    body {
+      background-color: #191D28;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+    }
+
+    .dropdown-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .dropdown-container select {
+      width: 100px;
+      height: 20px;
+      border-radius: 10px;
+      background-color: #2E3241;
+      color: white;
+      margin-right: 10px;
+    }
+
+    .buy-button {
+      border: none;
+      border-radius: 10px;
+      background-color: #2E3241;
+      color: white;
+      font-size: 14px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .coin-data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .coin-data p {
+      font-size: 80px;
+      color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      border: 1px solid #2E3241;
+    }
+
+    th, td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid white;
+    }
+
+    th {
+      background-color: #2E3241;
+      color: white;
+      font-weight: bold;
+      font-size: 30px;
+    }
+
+    td {
+      color: #A0A8B9;
+      font-size: 30px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <h1><img src="https://hodlinfo.com/static/media/HODLINFO.8f78fc06.png" alt="HODLINFO" style="width: 200px; height: auto;" /></h1>
+  
+  <div class="dropdown-container">
+    <form id="currency-form" method="GET">
+      <select name="currency" id="currency-dropdown" onchange="handleCurrencySelection(this)">
+        <option value="inr">INR</option>
+      </select>
+    </form>
+
+    <form id="coin-form" method="GET">
+      <select name="coin" id="coin-dropdown" onchange="handleCoinSelection(this)">
+        <option value="btc">BTC</option>
+        <option value="xrp">XRP</option>
+        <option value="eth">ETH</option>
+        <option value="trx" selected>TRX</option>
+        <option value="eos">EOS</option>
+        <option value="zil">ZIL</option>
+        <option value="bat">BAT</option>
+        <option value="zrx">ZRX</option>
+        <option value="req">REQ</option>
+        <option value="nuls">NULS</option>
+      </select>
+    </form>
+
+    <a class="buy-button" href="https://wazirx.com/">Buy TRX</a>
+  </div>
+
+  <div class="coin-data">
+    <h2 style="font-size: 50px; margin-bottom: 0;">Best Price to Trade</h2>
+    <p style="font-size: 80px; margin-top: 0;">₹ <%= coinData[0].last %></p> 
+
+    <h2 style="font-size: 30px; color: #ffffff;">Update Price By Different Platforms</h2>
+    <table style="width: 200%;"> 
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Platform</th>
+          <th>Last Trade Price</th>
+          <th>Buy / Sell Price</th>
+          <th>Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% coinData.forEach((coin, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td>WazirX</td>
+            <td>₹ <%= coin.last %></td>
+            <td>₹ <%= coin.buy %> / ₹ <%= coin.sell %></td>
+            <td><%= coin.volume %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function handleCurrencySelection(selectElement) {
+      const selectedCurrency = selectElement.value;
+      window.location.href = `/${selectedCurrency}`;
+    }
+
+    function handleCoinSelection(selectElement) {
+      const selectedCoin = selectElement.value;
+      window.location.href = `/${selectedCoin}`;
+    }
+  </script>
+</body>
+</html>
